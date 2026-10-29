@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sicilia · 14 November</title>
+  <meta name="description" content="Countdown to our Sicily trip, a live 10-day weather forecast and 100+ photos of Catania and the stops on the itinerary.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Catania · Etna · Taormina · Siracusa · Noto · Agrigento · Palermo</p>
+      <h1>Sicilia<span class="dot">.</span></h1>
+      <p class="sub" id="countdown-label">Departure on 14 November</p>
+
+      <div class="countdown" id="countdown" aria-live="polite">
+        <div class="unit"><span id="cd-days">--</span><small>days</small></div>
+        <div class="unit"><span id="cd-hours">--</span><small>hours</small></div>
+        <div class="unit"><span id="cd-mins">--</span><small>minutes</small></div>
+        <div class="unit"><span id="cd-secs">--</span><small>seconds</small></div>
+      </div>
+      <p class="arrived" id="arrived" hidden>Benvenuti in Sicilia! The trip has started.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="weather">
+      <div class="section-head">
+        <div>
+          <h2>10-day forecast</h2>
+          <p class="muted" id="weather-range">Starting today</p>
+        </div>
+        <div class="chips" id="city-chips" role="tablist" aria-label="Choose a city"></div>
+      </div>
+      <div class="forecast" id="forecast" aria-live="polite">
+        <p class="muted">Loading forecast…</p>
+      </div>
+      <p class="fineprint">Live data from <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>, refreshed every time you open the page.</p>
+    </section>
+
+    <section class="section" id="photos">
+      <div class="section-head">
+        <div>
+          <h2>The itinerary in pictures</h2>
+          <p class="muted" id="photo-count">Loading photos…</p>
+        </div>
+        <div class="chips" id="place-chips" aria-label="Filter by place"></div>
+      </div>
+
+      <div class="carousel" id="carousel">
+        <div class="stage" id="stage">
+          <img id="slide-img" alt="">
+          <div class="spinner" id="spinner"></div>
+          <button class="nav prev" id="prev" aria-label="Previous photo">‹</button>
+          <button class="nav next" id="next" aria-label="Next photo">›</button>
+          <div class="caption">
+            <div>
+              <strong id="slide-place"></strong>
+              <span id="slide-title"></span>
+            </div>
+            <div class="credit" id="slide-credit"></div>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="ghost" id="play" aria-pressed="true">❚❚ Pause</button>
+          <span class="counter" id="counter">0 / 0</span>
+        </div>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+    </section>
+
+    <section class="section" id="plan">
+      <h2>The plan</h2>
+      <ol class="itinerary" id="itinerary"></ol>
+    </section>
+  </main>
+
+  <footer>
+    Photos from <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>, credited on each slide. Buon viaggio!
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
