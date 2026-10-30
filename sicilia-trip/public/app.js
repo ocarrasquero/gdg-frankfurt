@@ -3,48 +3,47 @@
 /* ------------------------------------------------------------------
  * Trip data
  * ------------------------------------------------------------------ */
-const TRIP_LENGTH_DAYS = 10;
+const TRIP_LENGTH_DAYS = 9; // Sat 14 Nov (arrival) – Sun 22 Nov (flight home)
 
-// The 10-day route, one entry per day. `places` are the photo groups shown that day.
+// The route, one entry per day. `stay` is where we sleep that night.
 const ITINERARY = [
-  { title: 'Catania & Aci Trezza', text: 'Duomo, Via Etnea, the fish market (La Pescheria) and sunset at the Cyclops rocks.', places: ['Catania', 'Aci Trezza'] },
-  { title: 'Mount Etna', text: 'Silvestri craters, a jeep or cable-car trip up the volcano and a winery on its slopes.', places: ['Etna'] },
-  { title: 'Taormina', text: 'Greek theatre, Corso Umberto, Isola Bella and the view from Castelmola.', places: ['Taormina'] },
-  { title: 'Siracusa & Ortigia', text: 'Neapolis archaeological park, the Ear of Dionysius and the island of Ortigia.', places: ['Siracusa'] },
-  { title: 'Noto & Marzamemi', text: 'Baroque golden stone in Noto, then a fishing village dinner in Marzamemi.', places: ['Noto', 'Marzamemi'] },
-  { title: 'Ragusa Ibla & Modica', text: 'Hill-top baroque towns and the famous Modica chocolate.', places: ['Ragusa', 'Modica'] },
-  { title: 'Villa Romana del Casale', text: 'Roman mosaics in Piazza Armerina on the way west.', places: ['Piazza Armerina'] },
-  { title: 'Agrigento', text: 'Valley of the Temples at golden hour and the white cliffs of Scala dei Turchi.', places: ['Agrigento', 'Scala dei Turchi'] },
-  { title: 'Palermo', text: 'Cathedral, Palatine Chapel, Ballarò market and street food.', places: ['Palermo'] },
-  { title: 'Cefalù → Catania', text: 'Beach-side old town and Norman cathedral, then back east for the flight home.', places: ['Cefalù'] },
+  { stay: 'Ortigia', title: 'Arrival in Catania → Ortigia', text: 'Pick up the hire car at Catania airport, drive to Ortigia and stroll around at sunset.' },
+  { stay: 'Ortigia', title: 'Neapolis & Ortigia', text: 'Neapolis Archaeological Park in the morning, Ortigia in the afternoon. The market is closed on Sundays.' },
+  { stay: 'Ortigia', title: 'Ortigia market, Noto & Marzamemi', text: 'Ortigia market first thing, then baroque Noto and lunch in Marzamemi.' },
+  { stay: 'Agrigento', title: 'Villa Romana del Casale → Agrigento', text: 'Roman mosaics in Piazza Armerina, then on to Agrigento. If there is still light, sunset at the Scala dei Turchi.' },
+  { stay: 'Taormina', title: 'Valley of the Temples → Taormina', text: 'Valley of the Temples at 8:30, then about 3 h of motorway to Taormina.' },
+  { stay: 'Taormina', title: 'Mount Etna', text: 'Etna, with lunch and a wine tasting on the northern slope.' },
+  { stay: 'Taormina', title: 'Taormina', text: 'Teatro Antico, Isola Bella and sunset in Castelmola.' },
+  { stay: 'Taormina', title: 'Free / backup day', text: 'If Etna was cloudy on Thursday, go again today. Otherwise an easy trip to Savoca or the Alcantara Gorges, or just rest.' },
+  { stay: null, title: 'Home from Catania', text: 'Drive to Catania airport, about 60–75 min from Taormina.' },
 ];
 
 // Photo groups: Wikimedia Commons search terms and how many photos to show for each.
 const PHOTO_PLACES = [
-  { name: 'Catania', query: 'Catania', count: 14 },
-  { name: 'Aci Trezza', query: 'Aci Trezza', count: 6 },
-  { name: 'Etna', query: 'Etna', count: 10 },
-  { name: 'Taormina', query: 'Taormina', count: 11 },
-  { name: 'Siracusa', query: 'Siracusa Ortigia', fallback: 'Siracusa', count: 12 },
-  { name: 'Noto', query: 'Noto', count: 8 },
-  { name: 'Marzamemi', query: 'Marzamemi', count: 5 },
-  { name: 'Ragusa', query: 'Ragusa Ibla', fallback: 'Ragusa', count: 8 },
-  { name: 'Modica', query: 'Modica', count: 7 },
-  { name: 'Piazza Armerina', query: 'Villa Romana del Casale', fallback: 'Piazza Armerina', count: 6 },
-  { name: 'Agrigento', query: 'Valle dei Templi Agrigento', fallback: 'Agrigento', count: 10 },
-  { name: 'Scala dei Turchi', query: 'Scala dei Turchi', count: 5 },
-  { name: 'Palermo', query: 'Palermo', count: 12 },
-  { name: 'Cefalù', query: 'Cefalù', count: 8 },
+  { name: 'Catania', query: 'Catania', count: 8 },
+  { name: 'Ortigia', query: 'Ortigia', fallback: 'Siracusa', count: 14 },
+  { name: 'Neapolis', query: 'Neapolis Siracusa', fallback: 'Teatro greco Siracusa', count: 7 },
+  { name: 'Noto', query: 'Noto', count: 9 },
+  { name: 'Marzamemi', query: 'Marzamemi', count: 6 },
+  { name: 'Villa Romana del Casale', query: 'Villa Romana del Casale', fallback: 'Piazza Armerina', count: 8 },
+  { name: 'Agrigento', query: 'Valle dei Templi Agrigento', fallback: 'Agrigento', count: 12 },
+  { name: 'Scala dei Turchi', query: 'Scala dei Turchi', count: 6 },
+  { name: 'Etna', query: 'Etna', count: 12 },
+  { name: 'Taormina', query: 'Taormina', count: 12 },
+  { name: 'Isola Bella', query: 'Isola Bella Taormina', fallback: 'Isola Bella', count: 5 },
+  { name: 'Castelmola', query: 'Castelmola', count: 5 },
+  { name: 'Savoca', query: 'Savoca', count: 5 },
+  { name: 'Alcantara', query: 'Gole Alcantara', fallback: 'Alcantara', count: 5 },
 ];
 
 const WEATHER_CITIES = [
-  { name: 'Catania', lat: 37.5079, lon: 15.083 },
-  { name: 'Taormina', lat: 37.8516, lon: 15.2853 },
-  { name: 'Siracusa', lat: 37.0755, lon: 15.2866 },
-  { name: 'Ragusa', lat: 36.9269, lon: 14.7255 },
+  { name: 'Ortigia', lat: 37.0597, lon: 15.2934 },
+  { name: 'Noto', lat: 36.8906, lon: 15.0697 },
+  { name: 'Piazza Armerina', lat: 37.3842, lon: 14.3699 },
   { name: 'Agrigento', lat: 37.3111, lon: 13.5765 },
-  { name: 'Palermo', lat: 38.1157, lon: 13.3615 },
-  { name: 'Cefalù', lat: 38.0389, lon: 14.0225 },
+  { name: 'Taormina', lat: 37.8516, lon: 15.2853 },
+  { name: 'Etna (north slope)', lat: 37.8146, lon: 15.0478 },
+  { name: 'Catania', lat: 37.5079, lon: 15.083 },
 ];
 
 /* ------------------------------------------------------------------
@@ -99,7 +98,7 @@ function shuffle(arr) {
 function startCountdown() {
   const { start, end } = currentTrip();
   $('countdown-label').textContent =
-    `Departure on ${start.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Rome' })} (Sicily time)`;
+    `Arrival in Catania on ${start.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Rome' })} (Sicily time)`;
 
   const tick = () => {
     const now = new Date();
@@ -417,6 +416,7 @@ function renderItinerary() {
       <div class="d">Day ${i + 1} · ${addDays(startLocal, i).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' })}</div>
       <h3>${escapeHTML(day.title)}</h3>
       <p>${escapeHTML(day.text)}</p>
+      ${day.stay ? `<span class="stay">🛏 ${escapeHTML(day.stay)}</span>` : ''}
     </li>`).join('');
 }
 
